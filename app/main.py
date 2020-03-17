@@ -6,7 +6,7 @@ from sqlalchemy import desc
 from pytz import timezone
 
 from app import app
-from app.models import Rencana, Bendungan, Embung, ManualTma, ManualDaily
+from app.models import Users, Rencana, Bendungan, Embung, ManualTma, ManualDaily
 from app.forms import LoginForm
 
 bp = Blueprint('about', __name__)
@@ -100,8 +100,8 @@ def login():
             flash('Invalid username/Password')
             return redirect(url_for('index'))
         login_user(user, remember=form.remember_me.data)
-        next = request.args.get('next')
-        if not is_safe_url(next):
-            return abort(400)
+        # next = request.args.get('next')
+        # if not is_safe_url(next):
+        #     return abort(400)
         return redirect(url_for('index'))
     return render_template('auth/login.html', title='Login', form=form)
