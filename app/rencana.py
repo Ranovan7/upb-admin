@@ -1,11 +1,12 @@
-from flask import Blueprint
+from flask import Blueprint, request, redirect, url_for, jsonify
 from flask_login import login_required
-from app.models import ManualDaily
+from app.models import Rencana
+from app import db
 
 bp = Blueprint('rtow', __name__)
 
 
-@bp.route('')
+@bp.route('/')
 @login_required
 def index():
     pass
@@ -29,7 +30,19 @@ def imports(bendungan_id):
     pass
 
 
-@bp.route('/<bendungan_id>/update')
+@bp.route('/update', methods=['POST'])
 @login_required
-def update(bendungan_id):
-    pass
+def update():
+    pk = request.values.get('pk')
+    attr = request.values.get('name')
+    val = request.values.get('value')
+    row = Rencana.query.get(pk)
+    setattr(row, attr, val)
+    db.session.commit()
+
+    result = {
+        "name": attr,
+        "pk": pk,
+        "value": val
+    }
+    return jsonify(result)

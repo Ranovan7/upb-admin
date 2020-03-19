@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, jsonify
+from flask_login import login_required
 from app.models import Bendungan
 from app.models import ManualDaily, ManualTma, ManualVnotch, ManualPiezo, Rencana
+from app import db
 from sqlalchemy import and_, desc, cast, Date
 from pprint import pprint
 from pytz import timezone
@@ -10,6 +12,7 @@ bp = Blueprint('bendungan', __name__)
 
 
 @bp.route('/')
+@login_required
 def index():
     ''' Home Bendungan '''
     waduk = Bendungan.query.all()
@@ -73,11 +76,26 @@ def index():
                             sampling=sampling)
 
 
-@bp.route('/<lokasi_id>/update', methods=['GET', 'POST'])
-def update(lokasi_id):
-    pass
+@bp.route('/<bendungan_id>', methods=['GET'])
+@login_required
+def bendungan(bendungan_id):
+    bend = Bendungan.query.get(bendungan_id)
+    return render_template('bendungan/bendungan.html',
+                            bend=bend)
 
 
-@bp.route('/<lokasi_id>/vnotch', methods=['GET', 'POST'])
-def vnotch(lokasi_id):
-    pass
+@bp.route('/<bendungan_id>/update', methods=['POST'])
+@login_required
+def update(bendungan_id):
+    bend = Bendungan.query.get(bendungan_id)
+    attr = request.values.get('name')
+    val = request.values.get('value')
+    setattr(bend, attr, val)
+    db.session.commit()
+
+    result = {
+        "name": attr,
+        "pk": bendungan_id,
+        "value": val
+    }
+    return jsonify(result)
