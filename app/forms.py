@@ -53,3 +53,34 @@ class AddTma(FlaskForm):
     tma = DecimalField('TMA')
     volume = DecimalField('Volume')
     submit = SubmitField('Tambah')
+
+
+class AddVnotch(FlaskForm):
+    sampling = DateField("Hari", default=datetime.datetime.today())
+    vn1_tma = DecimalField('Vnotch 1 TMA')
+    vn1_deb = DecimalField('Vnotch 1 Debit')
+    vn2_tma = DecimalField('Vnotch 2 TMA')
+    vn2_deb = DecimalField('Vnotch 2 Debit')
+    vn3_tma = DecimalField('Vnotch 3 TMA')
+    vn3_deb = DecimalField('Vnotch 3 Debit')
+    submit = SubmitField('Tambah')
+
+
+class AddPiezo(FlaskForm):
+    sampling = DateField("Hari", default=datetime.datetime.today())
+    p1a = DecimalField('Piezo 1A')
+    p1b = DecimalField('Piezo 1B')
+    p1c = DecimalField('Piezo 1C')
+    p2a = DecimalField('Piezo 2A')
+    p2b = DecimalField('Piezo 2B')
+    p2c = DecimalField('Piezo 2C')
+    p3a = DecimalField('Piezo 3A')
+    p3b = DecimalField('Piezo 3B')
+    p3c = DecimalField('Piezo 3C')
+    p4a = DecimalField('Piezo 4A')
+    p4b = DecimalField('Piezo 4B')
+    p4c = DecimalField('Piezo 4C')
+    p5a = DecimalField('Piezo 5A')
+    p5b = DecimalField('Piezo 5B')
+    p5c = DecimalField('Piezo 5C')
+    submit = SubmitField('Tambah')

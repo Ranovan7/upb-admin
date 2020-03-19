@@ -150,9 +150,7 @@ def tma_add(bendungan_id):
 
         except IntegrityError:
             db.session.rollback()
-            flash('Data sudah ada, mohon update untuk mengubah', 'success')
-            return render_template('operasi/daily_add.html',
-                                    form=form)
+            flash('Data sudah ada, mohon update untuk mengubah', 'danger')
 
     return render_template('operasi/tma_add.html',
                             form=form)
@@ -200,9 +198,7 @@ def daily_add(bendungan_id):
 
         except IntegrityError:
             db.session.rollback()
-            flash('Data sudah ada, mohon update untuk mengubah', 'success')
-            return render_template('operasi/daily_add.html',
-                                    form=form)
+            flash('Data sudah ada, mohon update untuk mengubah', 'danger')
 
     return render_template('operasi/daily_add.html',
                             form=form)
