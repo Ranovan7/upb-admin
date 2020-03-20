@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, DecimalField, DateField
-from wtforms import BooleanField, SubmitField, SelectField, RadioField
+from wtforms import BooleanField, SubmitField, SelectField, RadioField, FileField
 from wtforms.validators import DataRequired
 from app.models import Bendungan
 import datetime
@@ -17,6 +17,14 @@ jam = [
     ('06', '06'),
     ('12', '12'),
     ('18', '18')
+]
+petugas = [
+    ("", "Tidak Ada"),
+    ("koordinator", "Koordinator"),
+    ("keamanan", "Keamanan"),
+    ("pemantauan", "Pemantauan"),
+    ("operasi", "Operasi"),
+    ("pemeliharaan", "Pemeliharaan")
 ]
 
 
@@ -49,7 +57,7 @@ class AddDaily(FlaskForm):
 
 class AddTma(FlaskForm):
     hari = DateField("Hari", default=datetime.datetime.today())
-    jam = SelectField("Jam", choices=jam, validators=[DataRequired()], default=roles[0][0])
+    jam = SelectField("Jam", choices=jam, validators=[DataRequired()], default=jam[0][0])
     tma = DecimalField('TMA')
     volume = DecimalField('Volume')
     submit = SubmitField('Tambah')
@@ -83,4 +91,12 @@ class AddPiezo(FlaskForm):
     p5a = DecimalField('Piezo 5A')
     p5b = DecimalField('Piezo 5B')
     p5c = DecimalField('Piezo 5C')
+    submit = SubmitField('Tambah')
+
+
+class AddKegiatan(FlaskForm):
+    sampling = DateField("Hari", default=datetime.datetime.today())
+    foto = FileField("Foto")
+    petugas = SelectField("Petugas", choices=petugas, validators=[DataRequired()], default=petugas[0][0])
+    uraian = StringField('Keterangan', validators=[DataRequired()])
     submit = SubmitField('Tambah')
