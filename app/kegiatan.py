@@ -89,19 +89,19 @@ def add(bendungan_id):
     form = AddKegiatan()
     bend = Bendungan.query.get(bendungan_id)
     if form.validate_on_submit():
-        last_keg = Kegiatan.query.order_by(Kegiatan.id.desc()).first()
-        new_id = 1 if not last_keg else (last_keg.id + 1)
+        last_foto = Foto.query.order_by(Foto.id.desc()).first()
+        new_id = 1 if not last_foto else (last_foto.id + 1)
         try:
             raw = request.foto.data
             imageStr = base64.b64encode(raw).decode('ascii')
             filename = f"kegiatan_{new_id}_{request.foto.data.filename}"
             foto = save_image(imageStr, filename)
-            foto.keterangan = form.values.get("keterangan")
+            foto.keterangan = form.values.get("uraian")
 
             kegiatan = Kegiatan(
                 sampling=form.values.get("sampling"),
                 petugas=form.values.get("petugas"),
-                uraian=form.values.get("keterangan"),
+                uraian=form.values.get("uraian"),
                 bendungan_id=bendungan_id
             )
             db.session.add(kegiatan)

@@ -26,6 +26,40 @@ petugas = [
     ("operasi", "Operasi"),
     ("pemeliharaan", "Pemeliharaan")
 ]
+komponen = [
+    ("Tubuh Bendungan - Puncak", "Tubuh Bendungan - Puncak"),
+    ("Tubuh Bendungan - Lereng Hulu", "Tubuh Bendungan - Lereng Hulu"),
+    ("Tubuh Bendungan - Lereng Hilir", "Tubuh Bendungan - Lereng Hilir"),
+    ("Bangunan Pengambilan - Jembatan Hantar", "Bangunan Pengambilan - Jembatan Hantar"),
+    ("Bangunan Pengambilan - Menara Intake", "Bangunan Pengambilan - Menara Intake"),
+    ("Bangunan Pengambilan - Pintu Intake", "Bangunan Pengambilan - Pintu Intake"),
+    ("Bangunan Pengambilan - Peralatan Hidromekanikal", "Bangunan Pengambilan - Peralatan Hidromekanikal"),
+    ("Bangunan Pengambilan - Mesin Penggerak", "Bangunan Pengambilan - Mesin Penggerak"),
+    ("Bangunan Pengeluaran - Tunnel / Terowongan", "Bangunan Pengambilan - Tunnel / Terowongan"),
+    ("Bangunan Pengeluaran - Katup", "Bangunan Pengambilan - Katup"),
+    ("Bangunan Pengeluaran - Mesin Penggerak", "Bangunan Pengambilan - Mesin Penggerak"),
+    ("Bangunan Pengeluaran - Bangunan Pelindung", "Bangunan Pengambilan - Bangunan Pelindung"),
+    ("Bangunan Pelimpah - Lantai Hulu", "Bangunan Pelimpah - Lantai Hulu"),
+    ("Bangunan Pelimpah - Mercu Spillway", "Bangunan Pelimpah - Mercu Spillway"),
+    ("Bangunan Pelimpah - Saluran Luncur", "Bangunan Pelimpah - Saluran Luncur"),
+    ("Bangunan Pelimpah - Dinding / Sayap", "Bangunan Pelimpah - Dinding / Sayap"),
+    ("Bangunan Pelimpah - Peredam Energi", "Bangunan Pelimpah - Peredam Energi"),
+    ("Bangunan Pelimpah - Jembatan", "Bangunan Pelimpah - Jembatan"),
+    ("Bukit Tumpuan - Tumpuan Kiri Kanan", "Bukit Tumpuan - Tumpuan Kiri Kanan"),
+    ("Bangunan Pelengkap - Bangunan Pelengkap", "Bangunan Pelengkap - Bangunan Pelengkap"),
+    ("Bangunan Pelengkap - Akses Jalan", "Bangunan Pelengkap - Akses Jalan"),
+    ("Instrumentasi - Tekanan Air Pori", "Instrumentasi - Tekanan Air Pori"),
+    ("Instrumentasi - Pergerakan Tanah", "Instrumentasi - Pergerakan Tanah"),
+    ("Instrumentasi - Tekanan Air Tanah", "Instrumentasi - Tekanan Air Tanah"),
+    ("Instrumentasi - Rembesan", "Instrumentasi - Rembesan"),
+    ("Instrumentasi - Curah Hujan", "Instrumentasi - Curah Hujan")
+]
+kategori = [
+    ('tidak rusak', 'Tidak Rusak'),
+    ('ringan', 'Ringan'),
+    ('sedang', 'Sedang'),
+    ('berat', 'Berat')
+]
 
 
 class LoginForm(FlaskForm):
@@ -100,3 +134,12 @@ class AddKegiatan(FlaskForm):
     petugas = SelectField("Petugas", choices=petugas, validators=[DataRequired()], default=petugas[0][0])
     uraian = StringField('Keterangan', validators=[DataRequired()])
     submit = SubmitField('Tambah')
+
+
+class LaporKerusakan(FlaskForm):
+    uraian = StringField('Uraian', validators=[DataRequired()]),
+    kategori = SelectField("kategori", choices=kategori, validators=[DataRequired()], default=kategori[0][0]),
+    foto = FileField("Foto"),
+    komponen = SelectField("Komponen", choices=komponen, validators=[DataRequired()], default=komponen[0][0])
+    keterangan = StringField('Keterangan', validators=[DataRequired()])
+    submit = SubmitField('Lapor')
