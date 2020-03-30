@@ -10,6 +10,12 @@ import datetime
 
 bp = Blueprint('bendungan', __name__)
 
+wil_sungai = {
+    '1': "Hulu",
+    '2': "Madiun",
+    '3': "Hilir"
+}
+
 
 @bp.route('/')
 @login_required
